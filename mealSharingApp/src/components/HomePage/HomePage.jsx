@@ -1,10 +1,9 @@
-import Meal from "../Meal";
-import MealsList from "../MealsList";
-
 export default function HomePage() {
   return (
     <div>
-      <MealsList />
+      <div className="content">
+        <h1>Home page</h1>
+      </div>
     </div>
   );
 }

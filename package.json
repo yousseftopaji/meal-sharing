@@ -10,7 +10,7 @@
     "start": "npm run build && node ./src/backend/server",
     "client": "webpack-dev-server --mode development --devtool inline-source-map --hot",
     "server": "nodemon ./src/backend/server",
-    "dev": "nodemon server.js"
+    "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "author": "Benjamin Hughes",
   "license": "MIT",
@@ -40,9 +40,10 @@
     "multer": "^1.3.0",
     "mysql2": "^2.1.0",
     "path": "^0.12.7",
+    "pg": "^8.11.5",
     "react": "^16.8.2",
     "react-dom": "^16.8.2",
-    "react-router-dom": "^5.0.1",
+    "react-router-dom": "^5.3.4",
     "sass": "^1.27.1",
     "sass-loader": "^10.0.4",
     "serve-favicon": "2.4.5",

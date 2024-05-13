@@ -3,14 +3,46 @@
   line-height: 1.5;
   font-weight: 400;
 
-  /* color-scheme: light dark;s */
-  /* color: rgba(255, 255, 255, 0.87); */
-  /* background-color: #242424; */
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+  color: #ffffff; /* Set text color to white */
+  margin-bottom: 20px; /* Add some space below the heading */
+}
+
+/* Styling for Navbar */
+.navbar {
+  background-color: #333333; /* Set background color for Navbar */
+  padding: 10px 20px; /* Add padding to Navbar */
+  display: flex; /* Display Navbar items in a row */
+  justify-content: space-between; /* Distribute Navbar items evenly */
+  align-items: center; /* Vertically center Navbar items */
+}
+
+.navbar h1 {
+  font-size: 1.8em; /* Adjust font size of Navbar heading */
+  color: #ffffff; /* Set text color to white */
+}
+
+.navbar .links a {
+  margin-right: 20px; /* Add spacing between Navbar links */
+  font-size: 1.2em; /* Adjust font size of Navbar links */
+  color: #ffffff; /* Set text color to white */
+  text-decoration: none; /* Remove underline from Navbar links */
+}
+
+.navbar .links a:hover {
+  text-decoration: underline; /* Add underline on hover for Navbar links */
 }
 
 a {
@@ -28,11 +60,7 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
-}
-
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+  background-color: #242424;
 }
 
 button {
@@ -45,6 +73,7 @@ button {
   background-color: #1a1a1a;
   cursor: pointer;
   transition: border-color 0.25s;
+  color: #ffffff;
 }
 button:hover {
   border-color: #646cff;
@@ -64,5 +93,46 @@ button:focus-visible {
   }
   button {
     background-color: #f9f9f9;
+    color: #000000;
   }
+}
+
+.meals-list-container {
+  padding: 20px;
+}
+
+.meals-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  grid-gap: 20px;
+}
+
+.meal-card {
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: #1a1a1a; /* Set default background color to dark */
+  color: #ffffff; /* Set default text color to white */
+  transition: background-color 0.3s, transform 0.3s; /* Add transition for smooth hover effect */
+}
+
+.meal-card:hover {
+  background-color: #2a2a2a; /* Change background color to slightly lighter shade on hover */
+  transform: scale(1.05); /* Increase size of the card on hover */
+}
+
+.meal-link {
+  text-decoration: none;
+  color: #ffffff; /* Set default text color to white */
+}
+
+.meal-link:hover {
+  text-decoration: none;
+  color: #ffffff;
+}
+
+.meal-image {
+  max-width: 100%;
+  height: auto;
+  margin-top: 10px;
 }
