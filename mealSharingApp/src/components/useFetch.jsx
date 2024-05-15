@@ -1,15 +1,13 @@
 import React, { useState, useEffect } from "react";
 
-export const MealsContext = React.createContext();
-let url = "http://localhost:5000/api/meals";
-
-export const MealsProvider = ({ children }) => {
-  const [data, setData] = useState([]);
-  const [error, setError] = useState(false);
+export const useFetch = ({ url, initialValue }) => {
+  const [data, setData] = useState(initialValue);
+  const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
   const fetchData = async () => {
     try {
+      setIsLoading(true);
       const response = await fetch(url);
       if (!response.ok) {
         throw new Error("Failed to fetch data");
@@ -28,11 +26,10 @@ export const MealsProvider = ({ children }) => {
     fetchData();
   }, [url]);
 
-  return (
-    <MealsContext.Provider
-      value={{ data, setData, error, setError, isLoading, setIsLoading }}
-    >
-      {children}
-    </MealsContext.Provider>
-  );
+  return {
+    data,
+    isLoading,
+    hasError: !!error,
+    error,
+  };
 };

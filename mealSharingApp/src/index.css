@@ -1,3 +1,21 @@
+/* Apply CSS reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Ensure full height and width for body and root element */
+html,
+body,
+#root {
+  height: 100%;
+  width: 100%;
+}
+
+/* Add your existing CSS styles here */
+/* ... */
+
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -107,7 +125,7 @@ button:focus-visible {
   grid-gap: 20px;
 }
 
-.meal-card {
+.meal-cards {
   border: 1px solid #ccc;
   padding: 10px;
   border-radius: 5px;
@@ -116,7 +134,7 @@ button:focus-visible {
   transition: background-color 0.3s, transform 0.3s; /* Add transition for smooth hover effect */
 }
 
-.meal-card:hover {
+.meal-cards:hover {
   background-color: #2a2a2a; /* Change background color to slightly lighter shade on hover */
   transform: scale(1.05); /* Increase size of the card on hover */
 }
@@ -131,8 +149,51 @@ button:focus-visible {
   color: #ffffff;
 }
 
+/* Styling for meal title */
+.meal-title {
+  text-align: center; /* Center-align the title */
+  color: #d1d1ce; /* Set a different color for the title (e.g., gold) */
+  margin-bottom: 10px; /* Add some space below the title */
+}
+
+/* Styling for meal image */
+.meal-images {
+  display: block; /* Center the image horizontally */
+  margin: 0 auto; /* Center the image horizontally */
+  width: 250px; /* Set a fixed width for the image */
+  height: 150px; /* Set a fixed height for the image */
+  object-fit: cover; /* Ensure the image covers the designated area */
+}
+
 .meal-image {
-  max-width: 100%;
-  height: auto;
-  margin-top: 10px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 194dvh;
+  height: 94dvh;
+  background-size: cover;
+  background-position: center;
+  opacity: 0.3;
+}
+
+.meal-details {
+  position: relative;
+  z-index: 1; /* Ensure meal details are above the image */
+  padding: 20px;
+  color: #fff; /* Text color for meal details */
+}
+
+.meal-details h2 {
+  font-size: 24px; /* Adjust font size as needed */
+  margin-bottom: 10px;
+}
+
+.meal-details h3 {
+  font-size: 18px; /* Adjust font size as needed */
+  margin-bottom: 10px;
+}
+
+.meal-details p {
+  font-size: 16px; /* Adjust font size as needed */
+  margin-bottom: 5px;
 }

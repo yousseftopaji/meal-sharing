@@ -1,50 +1,34 @@
-import React, { useEffect, useContext } from "react";
+import React from "react";
 import { useParams } from "react-router-dom";
-import { MealsContext } from "./useContext/MealsContext";
+import { useFetch } from "./useFetch";
 
 const MealCard = () => {
   const { id } = useParams();
   const {
-    isLoading,
-    setIsLoading,
-    error,
-    setError,
-    setData: setMeal,
     data: meal,
-  } = useContext(MealsContext);
-
-  useEffect(() => {
-    const fetchMeal = async () => {
-      setIsLoading(true);
-      try {
-        const response = await fetch(`http://localhost:5000/api/meals/${id}`);
-        if (!response.ok) {
-          throw new Error("Failed to fetch meal");
-        }
-        const mealData = await response.json();
-        setMeal(mealData);
-        setError(null);
-      } catch (err) {
-        setError(err.message || "Failed to fetch meal");
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchMeal();
-  }, [id]);
-
+    isLoading,
+    hasError: error,
+  } = useFetch({
+    url: `http://localhost:5000/api/meals/${id}`,
+    initialValue: [],
+  });
   return (
-    <div>
+    <div className="meal-card-container">
       {isLoading && <div>Loading...</div>}
       {error && <div>{error}</div>}
       {meal && (
-        <div>
-          <h2>{meal.title}</h2>
-          <h3>{meal.description}</h3>
-          <p>{meal.location}</p>
-          <p>{meal.price} DKK</p>
-          <img src={meal.image_url} alt={meal.title} />
+        <div className="meal-card">
+          <div
+            className="meal-image"
+            style={{ backgroundImage: `url(${meal.image_url})` }}
+          ></div>
+          <div className="meal-details">
+            <h2>{meal.title}</h2>
+            <h3>{meal.description}</h3>
+            <p>{meal.location}</p>
+            <p>{meal.price} DKK</p>
+            <p>{meal.meal_time}</p>
+          </div>
         </div>
       )}
     </div>

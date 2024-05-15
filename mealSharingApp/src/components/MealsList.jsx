@@ -1,9 +1,16 @@
-import React, { useContext } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { MealsContext } from "./useContext/MealsContext";
+import { useFetch } from "./useFetch";
 
 const MealsList = () => {
-  const { isLoading, error, data: meals } = useContext(MealsContext);
+  const {
+    data: meals,
+    isLoading,
+    hasError: error,
+  } = useFetch({ url: "http://localhost:5000/api/meals", initialValue: [] });
+
+  const [showAllMeals, setShowAllMeals] = useState(false);
+  const displayedMeals = showAllMeals ? meals : meals.slice(0, 6);
 
   return (
     <div className="meals-list-container">
@@ -12,21 +19,26 @@ const MealsList = () => {
       {error && <h3>{error}</h3>}
       {!isLoading && (
         <div className="meals-grid">
-          {meals.map((meal) => (
-            <div key={meal.id} className="meal-card">
+          {displayedMeals.map((meal) => (
+            <div key={meal.id} className="meal-cards">
               <Link to={`/meals/${meal.id}`} className="meal-link">
-                <h3>{meal.title}</h3>
-                <p>Description: {meal.description}</p>
-                <p>Price: {meal.price}</p>
+                <h3 className="meal-title">{meal.title}</h3>
                 <img
                   src={meal.image_url}
                   alt={meal.title}
-                  className="meal-image"
+                  className="meal-images"
                 />
+                <p>Description: {meal.description}</p>
+                <p>Price: {meal.price}</p>
               </Link>
             </div>
           ))}
         </div>
+      )}
+      {meals.length > 6 && (
+        <button onClick={() => setShowAllMeals(!showAllMeals)}>
+          {showAllMeals ? "Show Less" : "Show All"}
+        </button>
       )}
     </div>
   );

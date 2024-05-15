@@ -3,7 +3,9 @@ import { Link } from "react-router-dom/cjs/react-router-dom.min";
 const Navbar = () => {
   return (
     <nav className="navbar">
-      <h1 className="h1h1">Meal sharing app</h1>
+      <Link to={"/"}>
+        <h1>Meal sharing app</h1>
+      </Link>
       <div className="links">
         <Link to="/">Home </Link>
         <Link to="/create">New Meal </Link>
