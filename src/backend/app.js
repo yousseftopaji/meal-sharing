@@ -26,9 +26,6 @@ app.use(cors());
 router.use("/meals", mealsRouter);
 router.use("/reservations", reservationsRouter);
 router.use("/reviews", reviewsRouter);
-router.get("/", (req, res) => {
-  res.send("Youssef");
-});
 
 router.get("/meals/:id", async (req, res) => {
   try {
@@ -38,60 +35,6 @@ router.get("/meals/:id", async (req, res) => {
       return;
     }
     res.json(mealById);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: "Internal server error" });
-  }
-});
-
-router.get("/my-route", (req, res) => {
-  res.send("Hi friend");
-});
-
-router.get("/future-meals", async (req, res) => {
-  try {
-    const futureMeals = await knex("Meal").where("meal_time", ">", new Date());
-    res.json(futureMeals);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: "Internal server error" });
-  }
-});
-
-router.get("/past-meals", async (req, res) => {
-  try {
-    const pastMeals = await knex("Meal").where("meal_time", "<", new Date());
-    res.json(pastMeals);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: "Internal server error" });
-  }
-});
-
-router.get("/all-meals", async (req, res) => {
-  try {
-    const allMeals = await knex("Meal");
-    res.send(allMeals);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: "Internal server error" });
-  }
-});
-
-router.get("/first-meal", async (req, res) => {
-  try {
-    const firstMeal = await knex("Meal").orderBy("id").first();
-    res.json(firstMeal);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: "Internal server error" });
-  }
-});
-
-router.get("/last-meal", async (req, res) => {
-  try {
-    const lastMeal = await knex("Meal").orderBy("id", "desc").first();
-    res.json(lastMeal);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Internal server error" });

@@ -59,4 +59,123 @@ router.get("/", async (request, response) => {
   }
 });
 
+router.get("/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const mealById = await knex("Meal").where("id", id).first();
+    res.json(mealById);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+router.put("/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const {
+      title,
+      description,
+      location,
+      price,
+      max_reservations,
+      image_url,
+      meal_time,
+      created_date,
+    } = req.body;
+
+    await knex("Meal").where({ id }).update({
+      title,
+      description,
+      location,
+      price,
+      max_reservations,
+      image_url,
+      meal_time,
+      created_date,
+    });
+
+    // Fetch the updated meal
+    const updatedMeal = await knex("Meal").where("id", id).first();
+
+    res.json(updatedMeal);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+// It is necessary to make adjust the post function, the id must depend on .length
+router.post("/", async (req, res) => {
+  const newMeal = req.body;
+  try {
+    await knex("Meal").insert(newMeal);
+    res.status(201).json({ message: "A new meal added", meal: newMeal });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+router.delete("/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    await knex("Meal").where("id", id).del();
+    res.json({ message: "Review deleted successfully" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+router.get("/future-meals", async (req, res) => {
+  try {
+    const futureMeals = await knex("Meal").where("meal_time", ">", new Date());
+    res.json(futureMeals);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+router.get("/past-meals", async (req, res) => {
+  try {
+    const pastMeals = await knex("Meal").where("meal_time", "<", new Date());
+    res.json(pastMeals);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+router.get("/all-meals", async (req, res) => {
+  try {
+    const allMeals = await knex("Meal");
+    res.send(allMeals);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+router.get("/first-meal", async (req, res) => {
+  try {
+    const firstMeal = await knex("Meal").orderBy("id").first();
+    res.json(firstMeal);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+router.get("/last-meal", async (req, res) => {
+  try {
+    const lastMeal = await knex("Meal").orderBy("id", "desc").first();
+    res.json(lastMeal);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
 module.exports = router;
