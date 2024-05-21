@@ -88,7 +88,7 @@ const Reservation = ({ mealId, maxGuests }) => {
         onChange={(e) => setContactPhoneNumber(e.target.value)}
         required
       />
-      <button onClick={handleReservation}>Make Reservation</button>
+      <button onClick={handleReservation}>Submit Reservation</button>
     </div>
   );
 };

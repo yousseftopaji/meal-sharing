@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import { useFetch } from "./useFetch";
 import Reservation from "./Reservation";
+import Review from "./Review";
 
 const MealCard = () => {
   const { id } = useParams();
@@ -15,14 +16,28 @@ const MealCard = () => {
   });
 
   const [showReservation, setShowReservation] = useState(false);
+  const [showReview, setShowReview] = useState(false);
 
   const toggleReservation = () => {
     setShowReservation(!showReservation);
   };
-
+  const toggleReview = () => {
+    setShowReview(!showReview);
+  };
   // Function to check if reservation is allowed
   const isReservationAllowed = () => {
     return meal && meal.max_reservations > 0;
+  };
+
+  const formatMealTime = (mealTime) => {
+    const date = new Date(mealTime);
+    return date.toLocaleString("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+    });
   };
 
   return (
@@ -40,11 +55,11 @@ const MealCard = () => {
             <h3>{meal.description}</h3>
             <p>{meal.location}</p>
             <p>{meal.price} DKK</p>
-            <p>{meal.meal_time}</p>
+            <p>{formatMealTime(meal.meal_time)}</p>
             <p>available seats: {meal.max_reservations}</p>
             {isReservationAllowed() && (
               <React.Fragment>
-                <button onClick={toggleReservation}>Make Reservation</button>
+                <button onClick={toggleReservation}>Make Reservation?</button>
                 {showReservation && (
                   <Reservation mealId={id} maxGuests={meal.max_reservations} />
                 )}
@@ -53,6 +68,10 @@ const MealCard = () => {
             {!isReservationAllowed() && (
               <p>Reservations are not available for this meal.</p>
             )}
+            <div>
+              <button onClick={toggleReview}>Rate it?</button>
+              {showReview && <Review mealId={id} mealTitle={meal.title} />}
+            </div>
           </div>
         </div>
       )}

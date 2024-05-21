@@ -44,6 +44,8 @@
     "react": "^16.8.2",
     "react-datepicker": "^6.9.0",
     "react-dom": "^16.8.2",
+    "react-icon": "^1.0.0",
+    "react-icons": "^5.2.1",
     "react-router-dom": "^5.3.4",
     "sass": "^1.27.1",
     "sass-loader": "^10.0.4",
