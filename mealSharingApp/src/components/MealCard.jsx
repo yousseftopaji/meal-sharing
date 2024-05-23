@@ -24,9 +24,16 @@ const MealCard = () => {
   const toggleReview = () => {
     setShowReview(!showReview);
   };
-  // Function to check if reservation is allowed
+
   const isReservationAllowed = () => {
-    return meal && meal.max_reservations > 0;
+    if (!meal) {
+      return false;
+    }
+
+    const mealTime = new Date(meal.meal_time);
+    const currentTime = new Date();
+
+    return mealTime > currentTime && meal.max_reservations > 0;
   };
 
   const formatMealTime = (mealTime) => {
@@ -56,7 +63,13 @@ const MealCard = () => {
             <p>{meal.location}</p>
             <p>{meal.price} DKK</p>
             <p>{formatMealTime(meal.meal_time)}</p>
-            <p>available seats: {meal.max_reservations}</p>
+            <p>
+              available seats:
+              {!isReservationAllowed() || meal.max_reservations === 0
+                ? `Not anymore :(`
+                : meal.max_reservations}
+            </p>
+
             {isReservationAllowed() && (
               <React.Fragment>
                 <button onClick={toggleReservation}>Make Reservation?</button>
@@ -65,9 +78,7 @@ const MealCard = () => {
                 )}
               </React.Fragment>
             )}
-            {!isReservationAllowed() && (
-              <p>Reservations are not available for this meal.</p>
-            )}
+
             <div>
               <button onClick={toggleReview}>Rate it?</button>
               {showReview && <Review mealId={id} mealTitle={meal.title} />}

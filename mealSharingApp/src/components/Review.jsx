@@ -68,7 +68,7 @@ export default function Review({ mealId, mealTitle }) {
   return (
     <div>
       <h2>Leave a Review</h2>
-      <div>What do you think about this meal?</div>
+      <div>What do you think?</div>
       <textarea
         value={description}
         onChange={(e) => setDescription(e.target.value)}
