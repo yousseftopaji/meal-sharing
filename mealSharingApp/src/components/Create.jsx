@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { format } from "date-fns";
 
 export default function Create() {
   const [title, setTitle] = useState("");
@@ -12,14 +13,16 @@ export default function Create() {
   const [mealTime, setMealTime] = useState(new Date());
   const [image, setImage] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const currentDate = new Date();
     const year = currentDate.getFullYear();
-    const month = String(currentDate.getMonth() + 1).padStart(2, "0"); // Months are zero-based
+    const month = String(currentDate.getMonth() + 1).padStart(2, "0");
     const day = String(currentDate.getDate()).padStart(2, "0");
 
     const formattedDate = `${year}-${month}-${day}`;
+    const formattedMealTime = format(mealTime, "yyyy-MM-dd HH:mm:ss");
+
     const newMeal = {
       title,
       description,
@@ -27,28 +30,32 @@ export default function Create() {
       price,
       max_reservations: maxReservation,
       image_url: image,
-      meal_time: mealTime.toISOString().slice(0, 19).replace("T", " "),
+      meal_time: formattedMealTime,
       created_date: formattedDate,
     };
 
-    fetch("http://localhost:5000/api/meals/", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(newMeal),
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Failed to add meal");
-        }
-        return response.json();
-      })
-      .then((data) => {
-        console.log("Meal added successfully:", data);
-        // Optionally, redirect to another page or perform any other action
-      })
-      .catch((error) => {
-        console.error("Error adding meal:", error.message);
+    try {
+      const response = await fetch("http://localhost:5000/api/meals", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newMeal),
       });
+
+      if (!response.ok) {
+        throw new Error("Failed to create a new meal");
+      }
+
+      if (response.status === 201 || response.status === 200) {
+        alert("A new meal has been added successfully");
+        setDescription("");
+        window.location.href = `http://localhost:5173/meals/`;
+      }
+    } catch (error) {
+      console.error(error);
+      alert(`Error submitting review: ${error.message}`);
+    }
   };
 
   return (
