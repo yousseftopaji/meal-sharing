@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import SearchBar from "./SearchBar";
 import SortControl from "./SortControl";
 import { useFetch } from "./useFetch";
-import "./MealsList.css"; // Ensure to import the CSS file
+import "./MealsList.css";
 
 const truncateDescription = (description) => {
   return description.length > 50
@@ -15,6 +15,7 @@ const MealsList = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [sortKey, setSortKey] = useState("meal_time");
   const [sortDir, setSortDir] = useState("asc");
+  const [displayedCount, setDisplayedCount] = useState(8);
 
   const {
     data: meals,
@@ -43,6 +44,10 @@ const MealsList = () => {
     (meal) => new Date(meal.meal_time) <= new Date()
   );
 
+  const handleLoadMore = () => {
+    setDisplayedCount(displayedCount + 8);
+  };
+
   return (
     <div className="meals-list-container">
       <SearchBar onSearch={setSearchTerm} />
@@ -58,7 +63,7 @@ const MealsList = () => {
       {error && <h3>{error}</h3>}
       {!isLoading && futureMeals.length > 0 && (
         <div className="meals-grid">
-          {futureMeals.map((meal) => (
+          {futureMeals.slice(0, displayedCount).map((meal) => (
             <div key={meal.id} className="meal-cards">
               <Link to={`/meals/${meal.id}`} className="meal-link">
                 <h3 className="meal-title">{meal.title}</h3>
@@ -78,6 +83,11 @@ const MealsList = () => {
               </Link>
             </div>
           ))}
+          {displayedCount < futureMeals.length && (
+            <button onClick={handleLoadMore} className="loadMore">
+              Load More
+            </button>
+          )}
         </div>
       )}
       {!isLoading && futureMeals.length === 0 && (
@@ -87,7 +97,7 @@ const MealsList = () => {
       <h2>Past Meals</h2>
       {!isLoading && pastMeals.length > 0 && (
         <div className="meals-grid">
-          {pastMeals.map((meal) => (
+          {pastMeals.slice(0, displayedCount).map((meal) => (
             <div key={meal.id} className="meal-cards">
               <Link to={`/meals/${meal.id}`} className="meal-link">
                 <h3 className="meal-title">{meal.title}</h3>
@@ -104,6 +114,9 @@ const MealsList = () => {
               </Link>
             </div>
           ))}
+          {displayedCount < pastMeals.length && (
+            <button onClick={handleLoadMore}>Load More</button>
+          )}
         </div>
       )}
       {!isLoading && pastMeals.length === 0 && <h3>No past meals found</h3>}
