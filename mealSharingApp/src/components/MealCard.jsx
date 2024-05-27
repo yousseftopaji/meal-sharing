@@ -66,8 +66,8 @@ const MealCard = () => {
             <p>
               available seats:
               {isReservationAllowed()
-                ? `Not anymore :(`
-                : meal.max_reservations}
+                ? meal.max_reservations
+                : `Not anymore :(`}
             </p>
 
             {isReservationAllowed() && (
