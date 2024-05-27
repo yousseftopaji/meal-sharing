@@ -29,7 +29,7 @@ router.use("/reviews", reviewsRouter);
 
 router.get("/meals/:id", async (req, res) => {
   try {
-    const mealById = await knex("Meal").where({ id: req.params.id }).first();
+    const mealById = await knex("meal").where({ id: req.params.id }).first();
     if (!mealById) {
       res.status(404).json({ error: "Meal not found" });
       return;

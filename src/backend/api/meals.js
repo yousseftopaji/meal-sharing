@@ -4,7 +4,7 @@ const knex = require("../database");
 
 router.get("/", async (request, response) => {
   try {
-    let mealsQuery = knex("Meal");
+    let mealsQuery = knex("meal");
 
     const {
       maxPrice,
@@ -23,11 +23,11 @@ router.get("/", async (request, response) => {
 
     if (availableReservations === "true") {
       mealsQuery = mealsQuery.whereRaw(
-        "max_reservations > (SELECT IFNULL(SUM(number_of_guests), 0) FROM Reservation WHERE meal_id = Meal.id)"
+        "max_reservations > (SELECT IFNULL(SUM(number_of_guests), 0) FROM reservation WHERE meal_id = meal.id)"
       );
     } else if (availableReservations === "false") {
       mealsQuery = mealsQuery.whereRaw(
-        "max_reservations <= (SELECT IFNULL(SUM(number_of_guests), 0) FROM Reservation WHERE meal_id = Meal.id)"
+        "max_reservations <= (SELECT IFNULL(SUM(number_of_guests), 0) FROM reservation WHERE meal_id = meal.id)"
       );
     }
 
@@ -62,7 +62,7 @@ router.get("/", async (request, response) => {
 router.get("/:id", async (req, res) => {
   try {
     const { id } = req.params;
-    const mealById = await knex("Meal").where("id", id).first();
+    const mealById = await knex("meal").where("id", id).first();
     res.json(mealById);
   } catch (error) {
     console.error(error);
@@ -84,7 +84,7 @@ router.put("/:id", async (req, res) => {
       created_date,
     } = req.body;
 
-    await knex("Meal").where({ id }).update({
+    await knex("meal").where({ id }).update({
       title,
       description,
       location,
@@ -109,7 +109,7 @@ router.put("/:id", async (req, res) => {
 router.post("/", async (req, res) => {
   const newMeal = req.body;
   try {
-    await knex("Meal").insert(newMeal);
+    await knex("meal").insert(newMeal);
     res.status(201).json({ message: "A new meal added", meal: newMeal });
   } catch (error) {
     console.error(error);
@@ -120,7 +120,7 @@ router.post("/", async (req, res) => {
 router.delete("/:id", async (req, res) => {
   try {
     const { id } = req.params;
-    await knex("Meal").where("id", id).del();
+    await knex("meal").where("id", id).del();
     res.json({ message: "Review deleted successfully" });
   } catch (error) {
     console.error(error);
@@ -130,7 +130,7 @@ router.delete("/:id", async (req, res) => {
 
 router.get("/future-meals", async (req, res) => {
   try {
-    const futureMeals = await knex("Meal").where("meal_time", ">", new Date());
+    const futureMeals = await knex("meal").where("meal_time", ">", new Date());
     res.json(futureMeals);
   } catch (error) {
     console.error(error);
@@ -140,18 +140,8 @@ router.get("/future-meals", async (req, res) => {
 
 router.get("/past-meals", async (req, res) => {
   try {
-    const pastMeals = await knex("Meal").where("meal_time", "<", new Date());
+    const pastMeals = await knex("meal").where("meal_time", "<", new Date());
     res.json(pastMeals);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: "Internal server error" });
-  }
-});
-
-router.get("/all-meals", async (req, res) => {
-  try {
-    const allMeals = await knex("Meal");
-    res.send(allMeals);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Internal server error" });
@@ -160,7 +150,7 @@ router.get("/all-meals", async (req, res) => {
 
 router.get("/first-meal", async (req, res) => {
   try {
-    const firstMeal = await knex("Meal").orderBy("id").first();
+    const firstMeal = await knex("meal").orderBy("id").first();
     res.json(firstMeal);
   } catch (error) {
     console.error(error);
@@ -170,7 +160,7 @@ router.get("/first-meal", async (req, res) => {
 
 router.get("/last-meal", async (req, res) => {
   try {
-    const lastMeal = await knex("Meal").orderBy("id", "desc").first();
+    const lastMeal = await knex("meal").orderBy("id", "desc").first();
     res.json(lastMeal);
   } catch (error) {
     console.error(error);

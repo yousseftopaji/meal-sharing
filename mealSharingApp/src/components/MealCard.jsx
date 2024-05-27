@@ -65,7 +65,7 @@ const MealCard = () => {
             <p>{formatMealTime(meal.meal_time)}</p>
             <p>
               available seats:
-              {!isReservationAllowed() || meal.max_reservations === 0
+              {isReservationAllowed()
                 ? `Not anymore :(`
                 : meal.max_reservations}
             </p>
