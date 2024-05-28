@@ -21,12 +21,15 @@ const MealsList = () => {
     data: meals,
     isLoading,
     hasError: error,
-  } = useFetch({ url: "http://localhost:5000/api/meals", initialValue: [] });
+  } = useFetch({
+    url: "https://meal-sharing-9mjl.onrender.com/api/meals",
+    initialValue: [],
+  });
 
   const [filteredMeals, setFilteredMeals] = useState([]);
 
   useEffect(() => {
-    let url = `http://localhost:5000/api/meals?sortKey=${sortKey}&sortDir=${sortDir}`;
+    let url = `https://meal-sharing-9mjl.onrender.com/api/meals?sortKey=${sortKey}&sortDir=${sortDir}`;
     if (searchTerm) {
       url += `&title=${searchTerm}`;
     }

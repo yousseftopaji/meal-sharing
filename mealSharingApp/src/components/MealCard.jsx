@@ -11,7 +11,7 @@ const MealCard = () => {
     isLoading,
     hasError: error,
   } = useFetch({
-    url: `http://localhost:5000/api/meals/${id}`,
+    url: `https://meal-sharing-9mjl.onrender.com/api/meals/${id}`,
     initialValue: [],
   });
 

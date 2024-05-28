@@ -11,7 +11,7 @@ export default function Review({ mealId, mealTitle }) {
   const fetchAverageRating = async () => {
     try {
       const response = await fetch(
-        `http://localhost:5000/api/reviews/${mealId}/reviews`
+        `https://meal-sharing-9mjl.onrender.com/api/reviews/${mealId}/reviews`
       );
       const data = await response.json();
       setAverageRating(data.averageRating);
@@ -40,13 +40,16 @@ export default function Review({ mealId, mealTitle }) {
     };
 
     try {
-      const response = await fetch("http://localhost:5000/api/reviews", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(reviewData),
-      });
+      const response = await fetch(
+        "https://meal-sharing-9mjl.onrender.com/api/reviews",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(reviewData),
+        }
+      );
 
       if (!response.ok) {
         throw new Error("Failed to submit review");

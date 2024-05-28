@@ -35,13 +35,16 @@ export default function Create() {
     };
 
     try {
-      const response = await fetch("http://localhost:5000/api/meals", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(newMeal),
-      });
+      const response = await fetch(
+        "https://meal-sharing-9mjl.onrender.com/api/meals",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(newMeal),
+        }
+      );
 
       if (!response.ok) {
         throw new Error("Failed to create a new meal");
@@ -50,7 +53,7 @@ export default function Create() {
       if (response.status === 201 || response.status === 200) {
         alert("A new meal has been added successfully");
         setDescription("");
-        window.location.href = `http://localhost:5173/meals/`;
+        window.location.href = `https://meal-sharing-9mjl.onrender.com/meals/`;
       }
     } catch (error) {
       console.error(error);

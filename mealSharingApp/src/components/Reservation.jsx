@@ -34,13 +34,16 @@ const Reservation = ({ mealId, maxGuests }) => {
     };
 
     try {
-      const response = await fetch("http://localhost:5000/api/reservations/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(reservationData),
-      });
+      const response = await fetch(
+        "https://meal-sharing-9mjl.onrender.com/api/reservations/",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(reservationData),
+        }
+      );
 
       if (!response.ok) {
         throw new Error("Failed to make reservation");
