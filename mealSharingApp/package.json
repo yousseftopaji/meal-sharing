@@ -13,16 +13,32 @@
     "react": "^18.2.0",
     "react-datepicker": "^6.9.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.23.1"
+    "react-router-dom": "^6.23.1",
+    "react-icons": "^5.2.1",
+    "date-fns": "^3.6.0",
+    "dotenv": "^4.0.0"
   },
   "devDependencies": {
-    "@types/react": "^18.2.66",
-    "@types/react-dom": "^18.2.22",
+    "@babel/core": "^7.12.3",
+    "@babel/plugin-proposal-class-properties": "^7.12.1",
+    "@babel/plugin-transform-runtime": "^7.11.5",
+    "@babel/preset-env": "^7.12.1",
+    "@babel/preset-react": "^7.12.1",
+    "babel-loader": "^8.2.4",
+    "css-loader": "^5.0.0",
+    "dotenv-webpack": "^7.1.0",
+    "html-webpack-plugin": "^4.3.0",
+    "sass": "^1.27.1",
+    "sass-loader": "^10.0.4",
+    "style-loader": "^2.0.0",
+    "url-loader": "^4.1.1",
+    "vite": "^5.2.0",
     "@vitejs/plugin-react": "^4.2.1",
     "eslint": "^8.57.0",
     "eslint-plugin-react": "^7.34.1",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.6",
-    "vite": "^5.2.0"
+    "@types/react": "^18.2.66",
+    "@types/react-dom": "^18.2.22"
   }
 }
