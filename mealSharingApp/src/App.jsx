@@ -3,7 +3,7 @@ import HomePage from "./components/HomePage";
 import MealCard from "./components/MealCard";
 import MealsList from "./components/MealsList";
 import Navbar from "./components/Navbar";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 const App = () => {
   return (
@@ -12,7 +12,7 @@ const App = () => {
         <div className="app">
           <Navbar />
         </div>
-        <Switch>
+        <Routes>
           <Route exact path="/">
             <HomePage />
           </Route>
@@ -25,7 +25,7 @@ const App = () => {
           <Route path="/meals/:id">
             <MealCard />
           </Route>
-        </Switch>
+        </Routes>
       </div>
     </Router>
   );
