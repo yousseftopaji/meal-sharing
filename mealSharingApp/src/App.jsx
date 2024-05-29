@@ -5,14 +5,14 @@ import HomePage from "./components/HomePage";
 import MealCard from "./components/MealCard";
 import MealsList from "./components/MealsList";
 import Navbar from "./components/Navbar";
+import "./index.css";
+import "./components/Navbar.css";
 
 const App = () => {
   return (
     <Router>
-      <div>
-        <div className="app">
-          <Navbar />
-        </div>
+      <div className="app">
+        <Navbar />
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/create" element={<Create />} />

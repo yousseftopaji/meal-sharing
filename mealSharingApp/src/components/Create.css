@@ -1,0 +1,96 @@
+.create-body {
+  background-image: url("https://images.squarespace-cdn.com/content/v1/6206e88545aa7d54b13314f7/1677192799358-Z1O239QG98IZKVHLUT7W/unsplash-image-vJsj-hgOEG0.jpg");
+  background-position: center;
+  background-size: cover;
+  background-attachment: fixed;
+  display: flex;
+  flex-direction: column;
+  place-items: center;
+  padding: 20px;
+}
+
+.create-body h1 {
+  margin: 20px;
+  margin-top: 6rem;
+  color: rgb(255, 255, 255);
+  text-align: center;
+}
+
+.create-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding: 30px;
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(58, 58, 58, 0.1);
+  width: 100%;
+  max-width: 500px;
+  margin-bottom: 5rem;
+}
+
+.create-form label {
+  font-size: 1em;
+  font-weight: 500;
+  color: #333;
+}
+
+.create-form input,
+.create-form textarea {
+  padding: 7px;
+  font-size: 1em;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  transition: border-color 0.3s;
+}
+
+.create-form input:focus,
+.create-form textarea:focus {
+  border-color: #646cff;
+  outline: none;
+}
+
+.create-form button {
+  align-self: center;
+  background-color: #333;
+  color: white;
+  padding: 10px 20px;
+  font-size: 1em;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.create-form button:hover {
+  background-color: #535bf2;
+}
+
+.create-body a button {
+  background-color: #1a1a1a;
+  color: white;
+  padding: 10px 20px;
+  font-size: 1em;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-top: 10px;
+}
+
+.create-body a button:hover {
+  background-color: #333;
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+  .create-form {
+    padding: 20px;
+    max-width: 90%;
+  }
+
+  .create-body h1 {
+    font-size: 1.5rem;
+    margin-top: 7.5rem;
+  }
+}

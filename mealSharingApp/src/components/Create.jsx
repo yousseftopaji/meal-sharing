@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { format } from "date-fns";
+import "./Create.css";
 
 export default function Create() {
   const [title, setTitle] = useState("");
@@ -53,7 +54,7 @@ export default function Create() {
       if (response.status === 201 || response.status === 200) {
         alert("A new meal has been added successfully");
         setDescription("");
-        window.location.href = `https://meal-sharing-9mjl.onrender.com/meals/`;
+        window.location.href = `https://meal-sharing-1-tqul.onrender.com/meals/`;
       }
     } catch (error) {
       console.error(error);
@@ -62,9 +63,9 @@ export default function Create() {
   };
 
   return (
-    <div>
-      <h1>You can add the meal that you wish to share it!</h1>
-      <form onSubmit={handleSubmit}>
+    <div className="create-body">
+      <h1>Add a meal that you wish to share!</h1>
+      <form className="create-form" onSubmit={handleSubmit}>
         <label>Meal Title</label>
         <input
           type="text"
@@ -122,9 +123,6 @@ export default function Create() {
 
         <button>Add Meal</button>
       </form>
-      <Link to={"/meals"}>
-        <button>View All Meals</button>
-      </Link>
     </div>
   );
 }

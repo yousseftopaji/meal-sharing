@@ -30,13 +30,17 @@ const MealsList = () => {
 
   useEffect(() => {
     let url = `https://meal-sharing-9mjl.onrender.com/api/meals?sortKey=${sortKey}&sortDir=${sortDir}`;
-    if (searchTerm) {
-      url += `&title=${searchTerm}`;
-    }
-
     fetch(url)
       .then((response) => response.json())
-      .then((data) => setFilteredMeals(data))
+      .then((data) => {
+        let filteredData = data;
+        if (searchTerm) {
+          filteredData = data.filter((meal) =>
+            meal.title.toLowerCase().includes(searchTerm.toLowerCase())
+          );
+        }
+        setFilteredMeals(filteredData);
+      })
       .catch((error) => console.error("Error fetching meals:", error));
   }, [searchTerm, sortKey, sortDir]);
 
@@ -68,26 +72,25 @@ const MealsList = () => {
         <div className="meals-grid">
           {futureMeals.slice(0, displayedCount).map((meal) => (
             <div key={meal.id} className="meal-cards">
+              <h3 className="meal-title">{meal.title}</h3>
+              <img
+                src={meal.image_url}
+                alt={meal.title}
+                className="meal-images"
+              />
+              <p className="meal-description">
+                {truncateDescription(meal.description)}
+              </p>
+              <p>Price: {meal.price}</p>
+              <p>Meal Time: {new Date(meal.meal_time).toLocaleString()}</p>
+
               <Link to={`/meals/${meal.id}`} className="meal-link">
-                <h3 className="meal-title">{meal.title}</h3>
-                <img
-                  src={meal.image_url}
-                  alt={meal.title}
-                  className="meal-images"
-                />
-                <p className="meal-description">
-                  {truncateDescription(meal.description)}
-                </p>
-                <p>Price: {meal.price}</p>
-                <p>Meal Time: {new Date(meal.meal_time).toLocaleString()}</p>
-              </Link>
-              <Link to={`/meals/${meal.id}`}>
-                <button>See more!</button>
+                <button className="see-more-button">See more!</button>
               </Link>
             </div>
           ))}
           {displayedCount < futureMeals.length && (
-            <button onClick={handleLoadMore} className="loadMore">
+            <button onClick={handleLoadMore} className="load-more-button">
               Load More
             </button>
           )}
@@ -118,7 +121,9 @@ const MealsList = () => {
             </div>
           ))}
           {displayedCount < pastMeals.length && (
-            <button onClick={handleLoadMore}>Load More</button>
+            <button onClick={handleLoadMore} className="load-more-button">
+              Load More
+            </button>
           )}
         </div>
       )}

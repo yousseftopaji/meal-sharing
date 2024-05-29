@@ -1,4 +1,5 @@
 import React from "react";
+import "./MealsList.css";
 
 const SortControl = ({
   sortKey,
@@ -6,29 +7,33 @@ const SortControl = ({
   onSortKeyChange,
   onSortDirChange,
 }) => {
+  const handleSortKeyChange = (e) => {
+    onSortKeyChange(e.target.value);
+  };
+
+  const handleSortDirChange = (e) => {
+    onSortDirChange(e.target.value);
+  };
+
   return (
-    <div className="sort-controls">
-      <label>
-        Sort by:
-        <select
-          value={sortKey}
-          onChange={(e) => onSortKeyChange(e.target.value)}
-        >
-          <option value="meal_time">Date</option>
-          <option value="title">Title</option>
-          <option value="price">Price</option>
-        </select>
-      </label>
-      <label>
-        Direction:
-        <select
-          value={sortDir}
-          onChange={(e) => onSortDirChange(e.target.value)}
-        >
-          <option value="asc">Ascending</option>
-          <option value="desc">Descending</option>
-        </select>
-      </label>
+    <div className="sort-control">
+      <select
+        value={sortKey}
+        onChange={handleSortKeyChange}
+        className="sort-select"
+      >
+        <option value="meal_time">Meal Time</option>
+        <option value="price">Price</option>
+        <option value="title">Title</option>
+      </select>
+      <select
+        value={sortDir}
+        onChange={handleSortDirChange}
+        className="sort-select"
+      >
+        <option value="asc">Ascending</option>
+        <option value="desc">Descending</option>
+      </select>
     </div>
   );
 };

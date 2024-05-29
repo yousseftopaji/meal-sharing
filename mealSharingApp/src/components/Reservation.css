@@ -1,4 +1,4 @@
-.form-container {
+.reservation-form {
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -6,22 +6,21 @@
   width: 60vh;
   background-color: #333;
   border-radius: 5px;
-  margin-top: 0.5rem;
+  margin-bottom: 1rem;
 }
 
-.form-container label {
+.reservation-form label {
   font-size: 1em;
   margin-bottom: 5px;
 }
 
-.form-container input,
-.form-container textarea {
+.reservation-form input {
   padding: 10px;
   font-size: 1em;
   margin-bottom: 10px;
 }
 
-.form-container button {
+.reservation-form button {
   align-self: center;
   background-color: #333;
   color: #ffffff;
@@ -32,14 +31,6 @@
   transition: background-color 0.3s;
 }
 
-.form-container button:hover {
+.reservation-form button:hover {
   background-color: #0056b3;
-}
-
-input[type="radio"] {
-  display: none;
-}
-
-.star {
-  cursor: pointer;
 }

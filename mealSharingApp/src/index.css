@@ -1,75 +1,27 @@
-/* Apply CSS reset */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-/* Ensure full height and width for body and root element */
 html,
 body,
 #root {
-  height: 100%;
+  height: 100vh;
   width: 100%;
 }
-
-/* Add your existing CSS styles here */
-/* ... */
 
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
-
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
   background-color: #242424;
-
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-  color: #ffffff; /* Set text color to white */
-  margin-bottom: 20px; /* Add some space below the heading */
-}
-
-/* Styling for Navbar */
-.navbar {
-  background-color: #333333; /* Set background color for Navbar */
-  padding: 10px 20px; /* Add padding to Navbar */
-  display: flex; /* Display Navbar items in a row */
-  justify-content: space-between; /* Distribute Navbar items evenly */
-  align-items: center; /* Vertically center Navbar items */
-}
-
-.navbar h1 {
-  font-size: 1.8em; /* Adjust font size of Navbar heading */
-  color: #ffffff; /* Set text color to white */
-}
-
-.navbar .links a {
-  margin-right: 20px; /* Add spacing between Navbar links */
-  font-size: 1.2em; /* Adjust font size of Navbar links */
-  color: #ffffff; /* Set text color to white */
-  text-decoration: none; /* Remove underline from Navbar links */
-}
-
-.navbar .links a:hover {
-  text-decoration: underline; /* Add underline on hover for Navbar links */
-}
-
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
 }
 
 body {
@@ -79,6 +31,35 @@ body {
   min-width: 320px;
   min-height: 100vh;
   background-color: #242424;
+}
+
+.app {
+  height: 100vh;
+}
+
+.background-image {
+  background-image: url("https://images.squarespace-cdn.com/content/v1/6206e88545aa7d54b13314f7/1677192799358-Z1O239QG98IZKVHLUT7W/unsplash-image-vJsj-hgOEG0.jpg");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: -1;
+}
+
+a {
+  font-weight: 500;
+  color: #646cff;
+  text-decoration: inherit;
+}
+
+a:hover {
+  color: #535bf2;
 }
 
 button {
@@ -93,9 +74,11 @@ button {
   transition: border-color 0.25s;
   color: #ffffff;
 }
+
 button:hover {
   border-color: #646cff;
 }
+
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
@@ -113,87 +96,4 @@ button:focus-visible {
     background-color: #f9f9f9;
     color: #000000;
   }
-}
-
-.meals-list-container {
-  padding: 20px;
-}
-
-.meals-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  grid-gap: 20px;
-}
-
-.meal-cards {
-  border: 1px solid #ccc;
-  padding: 10px;
-  border-radius: 5px;
-  background-color: #1a1a1a; /* Set default background color to dark */
-  color: #ffffff; /* Set default text color to white */
-  transition: background-color 0.3s, transform 0.3s; /* Add transition for smooth hover effect */
-}
-
-.meal-cards:hover {
-  background-color: #2a2a2a; /* Change background color to slightly lighter shade on hover */
-  transform: scale(1.05); /* Increase size of the card on hover */
-}
-
-.meal-link {
-  text-decoration: none;
-  color: #ffffff; /* Set default text color to white */
-}
-
-.meal-link:hover {
-  text-decoration: none;
-  color: #ffffff;
-}
-
-/* Styling for meal title */
-.meal-title {
-  text-align: center; /* Center-align the title */
-  color: #d1d1ce; /* Set a different color for the title (e.g., gold) */
-  margin-bottom: 10px; /* Add some space below the title */
-}
-
-/* Styling for meal image */
-.meal-images {
-  display: block; /* Center the image horizontally */
-  margin: 0 auto; /* Center the image horizontally */
-  width: 250px; /* Set a fixed width for the image */
-  height: 150px; /* Set a fixed height for the image */
-  object-fit: cover; /* Ensure the image covers the designated area */
-}
-
-.meal-image {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 194dvh;
-  height: 94dvh;
-  background-size: cover;
-  background-position: center;
-  opacity: 0.3;
-}
-
-.meal-details {
-  position: relative;
-  z-index: 1; /* Ensure meal details are above the image */
-  padding: 20px;
-  color: #fff; /* Text color for meal details */
-}
-
-.meal-details h2 {
-  font-size: 24px; /* Adjust font size as needed */
-  margin-bottom: 10px;
-}
-
-.meal-details h3 {
-  font-size: 18px; /* Adjust font size as needed */
-  margin-bottom: 10px;
-}
-
-.meal-details p {
-  font-size: 16px; /* Adjust font size as needed */
-  margin-bottom: 5px;
 }

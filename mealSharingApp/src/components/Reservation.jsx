@@ -1,15 +1,16 @@
 import React, { useState } from "react";
+import "./Reservation.css";
 
 const Reservation = ({ mealId, maxGuests }) => {
   const [numberOfGuests, setNumberOfGuests] = useState(1);
-  const [contactName, setContactName] = useState("Name");
-  const [contactEmail, setContactEmail] = useState("Name@email.com");
-  const [contactPhoneNumber, setContactPhoneNumber] = useState("12312312");
+  const [contactName, setContactName] = useState("");
+  const [contactEmail, setContactEmail] = useState("");
+  const [contactPhoneNumber, setContactPhoneNumber] = useState("");
 
   const handleGuestsChange = (e) => {
     const value = parseInt(e.target.value, 10);
     if (value > maxGuests) {
-      alert(`Available reservations cannot exeed ${maxGuests} :(`);
+      alert(`Available reservations cannot exceed ${maxGuests} :(`);
       setNumberOfGuests(maxGuests);
     } else {
       setNumberOfGuests(value);
@@ -18,11 +19,7 @@ const Reservation = ({ mealId, maxGuests }) => {
 
   const handleReservation = async () => {
     const currentDate = new Date();
-    const year = currentDate.getFullYear();
-    const month = String(currentDate.getMonth() + 1).padStart(2, "0");
-    const day = String(currentDate.getDate()).padStart(2, "0");
-
-    const formattedDate = `${year}-${month}-${day}`;
+    const formattedDate = currentDate.toISOString().split("T")[0];
 
     const reservationData = {
       number_of_guests: numberOfGuests,
@@ -48,9 +45,10 @@ const Reservation = ({ mealId, maxGuests }) => {
       if (!response.ok) {
         throw new Error("Failed to make reservation");
       }
+
       if (response.status === 200 || response.status === 201) {
         alert("Reservation made successfully");
-        window.location.href = `http://localhost:5173/meals/${mealId}`;
+        window.location.href = `https://meal-sharing-1-tqul.onrender.com/meals/${mealId}`;
       }
     } catch (error) {
       console.error("Error making reservation:", error.message);
@@ -59,7 +57,7 @@ const Reservation = ({ mealId, maxGuests }) => {
   };
 
   return (
-    <div>
+    <div className="form-container">
       <h2>Make a Reservation</h2>
       <label>Number of Guests:</label>
       <input

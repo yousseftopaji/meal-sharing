@@ -19,6 +19,7 @@ export default function Review({ mealId, mealTitle }) {
       console.error("Error fetching average rating:", error);
     }
   };
+
   useEffect(() => {
     fetchAverageRating();
   }, [mealId]);
@@ -60,7 +61,7 @@ export default function Review({ mealId, mealTitle }) {
         setDescription("");
         setStars(1);
         fetchAverageRating();
-        window.location.href = `http://localhost:5173/meals/${mealId}`;
+        window.location.href = `https://meal-sharing-1-tqul.onrender.com/meals/${mealId}`;
       }
     } catch (error) {
       console.error(error);
@@ -69,7 +70,7 @@ export default function Review({ mealId, mealTitle }) {
   };
 
   return (
-    <div>
+    <div className="form-container">
       <h2>Leave a Review</h2>
       <div>What do you think?</div>
       <textarea
