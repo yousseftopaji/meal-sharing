@@ -6,7 +6,8 @@ const path = require("path");
 const mealsRouter = require("./api/meals");
 const reservationsRouter = require("./api/reservations");
 const reviewsRouter = require("./api/reviews");
-const buildPath = path.join(__dirname, "../../dist");
+const buildPath = path.join(__dirname, "../../mealSharingApp/dist");
+console.log(buildPath);
 const port = process.env.PORT || 3000;
 const cors = require("cors");
 const knex = require("./database");
@@ -27,6 +28,20 @@ router.use("/reservations", reservationsRouter);
 router.use("/reviews", reviewsRouter);
 router.get("/", (req, res) => {
   res.send("Youssef");
+});
+
+router.get("/meals/:id", async (req, res) => {
+  try {
+    const mealById = await knex("Meal").where({ id: req.params.id }).first();
+    if (!mealById) {
+      res.status(404).json({ error: "Meal not found" });
+      return;
+    }
+    res.json(mealById);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal server error" });
+  }
 });
 
 router.get("/my-route", (req, res) => {
