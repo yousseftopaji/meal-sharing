@@ -18,7 +18,19 @@ router.get("/:meal_id/reviews", async (req, res) => {
   try {
     const { meal_id } = req.params;
     const reviews = await knex("Review").where("meal_id", meal_id);
-    res.json(reviews);
+
+    if (reviews.length === 0) {
+      return res.json({ averageRating: 0, reviews: [] });
+    }
+
+    const validRatings = reviews.filter((review) => review.stars !== null);
+    const totalStars = validRatings.reduce(
+      (acc, review) => acc + review.stars,
+      0
+    );
+    const averageRating = (totalStars / validRatings.length).toFixed(2);
+
+    res.json({ averageRating, reviews });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Internal server error" });
