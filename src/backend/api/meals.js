@@ -2,19 +2,8 @@ const express = require("express");
 const router = express.Router();
 const knex = require("../database");
 
-// router.get("/", async (req, res) => {
-//   try {
-//     const allMeals = await knex("Meal");
-//     res.send(allMeals);
-//   } catch (error) {
-//     console.error(error);
-//     res.status(500).json({ error: "Internal server error" });
-//   }
-// });
-
 router.get("/", async (request, response) => {
   try {
-    // Start with the base query
     let mealsQuery = knex("Meal");
 
     const {
