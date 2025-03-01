@@ -1,0 +1,36 @@
+.reservation-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 20px;
+  width: 60vh;
+  background-color: #333;
+  border-radius: 5px;
+  margin-bottom: 1rem;
+}
+
+.reservation-form label {
+  font-size: 1em;
+  margin-bottom: 5px;
+}
+
+.reservation-form input {
+  padding: 10px;
+  font-size: 1em;
+  margin-bottom: 10px;
+}
+
+.reservation-form button {
+  align-self: center;
+  background-color: #333;
+  color: #ffffff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.reservation-form button:hover {
+  background-color: #0056b3;
+}

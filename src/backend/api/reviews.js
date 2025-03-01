@@ -5,7 +5,7 @@ const knex = require("../database");
 // GET /api/reviews route
 router.get("/", async (req, res) => {
   try {
-    const reviews = await knex("Review").select("*");
+    const reviews = await knex("review").select("*");
     res.json(reviews);
   } catch (error) {
     console.error(error);
@@ -17,8 +17,20 @@ router.get("/", async (req, res) => {
 router.get("/:meal_id/reviews", async (req, res) => {
   try {
     const { meal_id } = req.params;
-    const reviews = await knex("Review").where("meal_id", meal_id);
-    res.json(reviews);
+    const reviews = await knex("review").where("meal_id", meal_id);
+
+    if (reviews.length === 0) {
+      return res.json({ averageRating: 0, reviews: [] });
+    }
+
+    const validRatings = reviews.filter((review) => review.stars !== null);
+    const totalStars = validRatings.reduce(
+      (acc, review) => acc + review.stars,
+      0
+    );
+    const averageRating = (totalStars / validRatings.length).toFixed(2);
+
+    res.json({ averageRating, reviews });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Internal server error" });
@@ -29,7 +41,7 @@ router.get("/:meal_id/reviews", async (req, res) => {
 router.post("/", async (req, res) => {
   try {
     const { title, description, meal_id, stars, created_date } = req.body;
-    await knex("Review").insert({
+    await knex("review").insert({
       title,
       description,
       meal_id,
@@ -47,7 +59,7 @@ router.post("/", async (req, res) => {
 router.get("/:id", async (req, res) => {
   try {
     const { id } = req.params;
-    const review = await knex("Review").where("id", id).first();
+    const review = await knex("review").where("id", id).first();
     if (!review) {
       return res.status(404).json({ error: "Review not found" });
     }
@@ -63,7 +75,7 @@ router.put("/:id", async (req, res) => {
   try {
     const { id } = req.params;
     const { title, description, meal_id, stars, created_date } = req.body;
-    await knex("Review")
+    await knex("review")
       .where("id", id)
       .update({ title, description, meal_id, stars, created_date });
     res.json({ message: "Review updated successfully" });

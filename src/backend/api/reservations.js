@@ -5,23 +5,8 @@ const knex = require("../database");
 // GET all reservations
 router.get("/", async (req, res) => {
   try {
-    const reservations = await knex("Reservation");
+    const reservations = await knex("reservation");
     res.json(reservations);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: "Internal server error" });
-  }
-});
-
-// GET a reservation by ID
-router.get("/:id", async (req, res) => {
-  const { id } = req.params;
-  try {
-    const reservation = await knex("Reservation").where("id", id).first();
-    if (!reservation) {
-      return res.status(404).json({ error: "Reservation not found" });
-    }
-    res.json(reservation);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Internal server error" });
@@ -30,38 +15,79 @@ router.get("/:id", async (req, res) => {
 
 // POST a new reservation
 router.post("/", async (req, res) => {
-  const newReservation = req.body;
   try {
-    await knex("Reservation").insert(newReservation);
-    res.status(201).json({ message: "Reservation created" });
+    const addNewReservation = req.body;
+    const newReservation = await knex("reservation").insert(addNewReservation);
+
+    res.status(201).json({ data: newReservation, message: "ok" });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: "Internal server error" });
+    res.status(500).send("something went wrong");
   }
 });
 
-// PUT update a reservation by ID
+// Get the reservation by id
+router.get("/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const reservationId = await knex
+      .select("*")
+      .from("reservation")
+      .where({ id });
+    if (reservationId) {
+      res.json(reservationId);
+    }
+  } catch (error) {
+    console.error(error);
+  }
+});
+
+// PUT	Updates the reservation by id
 router.put("/:id", async (req, res) => {
-  const { id } = req.params;
-  const updatedReservation = req.body;
   try {
-    await knex("Reservation").where("id", id).update(updatedReservation);
-    res.json({ message: "Reservation updated" });
+    const { id } = req.params;
+    const {
+      number_of_guests,
+      meal_id,
+      created_date,
+      contact_phonenumber,
+      contact_name,
+      contact_email,
+    } = req.body;
+    const updatedReservation = await knex("reservation")
+      .where({ id: id })
+      .update({
+        number_of_guests,
+        meal_id,
+        created_date,
+        contact_phonenumber,
+        contact_name,
+        contact_email,
+      });
+    if (updatedMeal) {
+      return res.json(updatedReservation);
+    } else {
+      return res.send("No updated reservation found.");
+    }
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: "Internal server error" });
   }
 });
 
-// DELETE a reservation by ID
+// Delete the reservation by id
 router.delete("/:id", async (req, res) => {
-  const { id } = req.params;
   try {
-    await knex("Reservation").where("id", id).del();
-    res.json({ message: "Reservation deleted" });
+    const { id } = req.params;
+    const deletedReservation = await knex("reservation")
+      .where({ id: id })
+      .del();
+    if (deletedReservation) {
+      return res.json({ message: "Reservation deleted" });
+    } else {
+      return res.json({ message: "Reservation not found" });
+    }
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: "Internal server error" });
   }
 });
 
